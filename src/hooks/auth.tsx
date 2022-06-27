@@ -7,8 +7,8 @@ import React, {
 } from 'react';
 
 import { Alert } from 'react-native';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+// import auth from '@react-native-firebase/auth';
+// import firestore from '@react-native-firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type User = {
