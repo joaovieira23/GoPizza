@@ -7,6 +7,7 @@ import { useTheme } from 'styled-components/native';
 import { TouchableOpacity } from 'react-native';
 
 import { Search } from '@components/Search';
+import { ProductCard } from '@components/ProductCard';
 
 import { 
     Container, 
@@ -41,6 +42,8 @@ export function Home() {
                 <Title>Cardápio</Title>
                 <MenuItemsNumber>10 pizzas</MenuItemsNumber>
             </MenuHeader>
+
+            <ProductCard data={{ id: '1', name: 'Pizza', description: 'Sabores e ingredientes dessa pizza', photo_url: 'https://github.com/joaovieira23.png' }} />
         </Container>
     );
 };

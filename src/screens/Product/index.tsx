@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Platform, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
+// import firestore from '@react-native-firebase/firestore';
+// import storage from '@react-native-firebase/storage';
 
 import { ButtonBack } from '@components/ButtonBack';
 import { InputPrice } from '@components/InputPrice';
@@ -69,10 +69,10 @@ export function Product() {
         setIsLoading(true);
 
         const fileName = new Date().getTime();
-        const reference = storage().ref(`/pizza/${fileName}.png`);
+        // const reference = storage().ref(`/pizza/${fileName}.png`);
 
-        await reference.putFile(image);
-        const photo_url = await reference.getDownloadURL();
+        // await reference.putFile(image);
+        // const photo_url = await reference.getDownloadURL();
 
         // Até aqui eu fiz o upload e tenho o link da imagem, agora irei salvar no banco;
         // Ele cria a coleção caso não exista
@@ -80,22 +80,22 @@ export function Product() {
         // Firestore é case sensitive, na propriedade name_insensitive irei salvar o nome todo em minúsculo
         // pois usarei esse campo quando eu quiser pesquisar pelo nome do produto
 
-        firestore()
-        .collection('pizzas')
-        .add({
-            name,
-            name_insensitive: name.toLowerCase().trim(),
-            description,
-            prices_sizes: {
-                p: priceSizeP,
-                m: priceSizeM,
-                g: priceSizeG,
-            },
-            photo_url,
-            photo_path: reference.fullPath
-        })
-        .then(() => Alert.alert('Cadastro', 'Pizza cadastrada com sucesso.'))
-        .catch(() => Alert.alert('Cadastro', 'Não foi possível cadastrar a pizza.'))
+        // firestore()
+        // .collection('pizzas')
+        // .add({
+        //     name,
+        //     name_insensitive: name.toLowerCase().trim(),
+        //     description,
+        //     prices_sizes: {
+        //         p: priceSizeP,
+        //         m: priceSizeM,
+        //         g: priceSizeG,
+        //     },
+        //     photo_url,
+        //     photo_path: reference.fullPath
+        // })
+        // .then(() => Alert.alert('Cadastro', 'Pizza cadastrada com sucesso.'))
+        // .catch(() => Alert.alert('Cadastro', 'Não foi possível cadastrar a pizza.'))
 
         setIsLoading(false);
     }

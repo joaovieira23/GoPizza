@@ -14,7 +14,7 @@ export const Header = styled(LinearGradient).attrs(({ theme }) => ({
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: ${getStatusBarHeight() + 33} 24px 58px;
+    padding: ${getStatusBarHeight() + 33}px 24px 58px;
 `;
 
 export const Greeting = styled.View`
