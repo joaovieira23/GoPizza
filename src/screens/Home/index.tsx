@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import happyEmoji from '@assets/happy.png';
 
@@ -6,7 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from 'styled-components/native';
 import firestore from '@react-native-firebase/firestore';
 import { Alert ,TouchableOpacity, FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import { Search } from '@components/Search';
 import { ProductCard, ProductProps } from '@components/ProductCard';
@@ -63,17 +63,18 @@ export function Home() {
 
     function handleOpen(id: string) {
         navigation.navigate('product', { id })
-    }
+    };
 
     function handleAdd() {
         navigation.navigate('product', {});
-    }
+    };
 
 
-    useEffect(() => {
+    useFocusEffect(
+        useCallback(() => {
         //Passando '' ele irá trazer todos
         fetchPizzas('');
-    }, [])
+    }, []));
 
     return (
         <Container>

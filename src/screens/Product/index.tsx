@@ -119,10 +119,23 @@ export function Product() {
         .catch(() => Alert.alert('Cadastro', 'Não foi possível cadastrar a pizza.'))
 
         setIsLoading(false);
-    }
+    };
 
     function handleGoBack() {
         navigation.goBack();
+    };
+
+    function handleDelete() {
+        firestore()
+        .collection('pizzas')
+        .doc(id)
+        .delete()
+        .then(() => {
+            storage()
+            .ref(photoPath)
+            .delete()
+            .then(() => navigation.navigate('home'));
+        });
     }
 
     useEffect(() => {
@@ -153,7 +166,7 @@ export function Product() {
                     <Title>Cadastrar</Title>
                     {
                         id ?
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={handleDelete}>
                             <DeleteLabel>Deletar</DeleteLabel>
                         </TouchableOpacity>
                         : <View style={{ width: 20 }} />
