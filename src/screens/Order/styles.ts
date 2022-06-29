@@ -20,4 +20,11 @@ export const Photo = styled.Image`
     align-self: center;
     position: relativo;
     top: -120px;
-`
+`;
+
+export const Sizes = styled.View`
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 40px;
+`;
