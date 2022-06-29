@@ -2,9 +2,11 @@ import { ButtonBack } from '@components/ButtonBack';
 import React from 'react';
 import { Platform } from 'react-native';
 
-
-
-import { Container, Header } from './styles';
+import { 
+    Container, 
+    Header,
+    Photo
+} from './styles';
 
 export function Order() {
     return (
@@ -15,6 +17,7 @@ export function Order() {
                     style={{ marginBottom: 108 }}
                 />
             </Header>
+            <Photo source={{ uri: 'https://github/joaovieira23.png' }} />
         </Container>
     );
 }
