@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { ButtonBack } from '@components/ButtonBack';
 import { RadioButton } from '@components/RadioButton';
+import { ProductNavigationProps, OrderNavigationProps } from '@src/@types/navigation';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
 
 import { PIZZA_TYPES } from '@utils/pizzaTypes';
 
@@ -24,15 +26,36 @@ import {
     FormRow,
     Price
 } from './styles';
+import { ProductProps } from '@components/ProductCard';
+
+type PizzaResponse = ProductProps & {
+    prices_sizes: {
+        [key: string]: number;
+    }
+}
 
 export function Order() {
-
     const [size, setSize] = useState('');
+    const [pizza, setPizza] = useState<PizzaResponse>({} as PizzaResponse);
+
     const navigation = useNavigation();
+    const route = useRoute();
+    const { id } = route.params as OrderNavigationProps;
 
     function handleGoBack() {
         navigation.goBack();
-    }
+    };
+
+    useEffect(() => {
+        if(id) {
+            firestore()
+            .collection('pizzas')
+            .doc(id)
+            .get()
+            .then(response => setPizza(response.data() as PizzaResponse))
+            .catch(() => Alert.alert('Pedido', 'Não foi possível carregar o produto'));
+        }
+    }, [id])
 
     return (
         <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
@@ -44,10 +67,10 @@ export function Order() {
                     />
                 </Header>
                 
-                <Photo source={{ uri: 'https://github/joaovieira23.png' }} />
+                <Photo source={{ uri: pizza.photo_url }} />
 
                 <Form>
-                    <Title>Nome da Pizza</Title>
+                    <Title>{pizza.name}</Title>
                     <Label>Selecione um tamanho</Label>
                     <Sizes>
                         {
