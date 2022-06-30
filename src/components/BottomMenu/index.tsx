@@ -14,7 +14,6 @@ export function BottomMenu({ title, color, notifications } : Props) {
     return (
         <Container>
             <Title color={color}>{title}</Title>
-
             {
                 notifications && (
                     <Notification noNotifications={noNotification}>
